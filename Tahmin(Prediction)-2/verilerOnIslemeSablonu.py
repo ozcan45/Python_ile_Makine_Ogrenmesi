@@ -101,7 +101,7 @@ regressor.fit(x_train,y_train)
 y_pred=regressor.predict(x_test)
 #print(y_pred)
 
-
+#boy tahmin etme regresion'u
 boy=sonuc.iloc[:,3:4].values
 sol=sonuc.iloc[:,:3]
 sag=sonuc.iloc[:,4:]
@@ -109,7 +109,10 @@ veri=pd.concat([sol,sag],axis=1)
 
 x_train,x_test,y_train,y_test=train_test_split(veri,boy,test_size=0.33,random_state=0)
 
-
+r2=LinearRegression()
+r2.fit(x_train,y_train)
+y_pred=r2.predict(x_test)
+print(y_pred)
 
 
 
