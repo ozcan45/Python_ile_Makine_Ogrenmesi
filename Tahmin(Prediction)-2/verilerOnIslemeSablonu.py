@@ -112,7 +112,10 @@ x_train,x_test,y_train,y_test=train_test_split(veri,boy,test_size=0.33,random_st
 r2=LinearRegression()
 r2.fit(x_train,y_train)
 y_pred=r2.predict(x_test)
-print(y_pred)
+#print(y_pred)
+import statsmodels.formula.api as sm
+X=np.append(arr=np.np.ones((22,1)).astype(int),values=veri ,axis=1)
+X_l=veri.iloc[:,[0,1,2,3,4,5]].values
 
 
 
