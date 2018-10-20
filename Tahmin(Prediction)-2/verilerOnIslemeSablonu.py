@@ -101,6 +101,7 @@ regressor.fit(x_train,y_train)
 y_pred=regressor.predict(x_test)
 #print(y_pred)
 
+
 boy=sonuc.iloc[:,3:4].values
 sol=sonuc.iloc[:,:3]
 sag=sonuc.iloc[:,4:]
