@@ -24,57 +24,74 @@ print(veriler)
 
 
 
-#eksikVeriler
-veriler=pd.read_csv("veriler.csv")
+#verileri yukleme
+veriler=pd.read_csv("odev_tenis.csv")
 #print(veriler)
 from sklearn.preprocessing import Imputer,LabelEncoder,OneHotEncoder
 
 #------------------------------------------------------
 
-yas=veriler.iloc[:,1:4].values
+#print(veriler)
+termo=veriler.iloc[:,1:2].values
+humidity=veriler.iloc[:,2:3].values
+#print(termo)
 
-#print(yas)
 
+#kategorik veriler hava durumu alanı numarik çevirim
 
-#kategorik veriler ülkeleri sayısal veriye dönüştürme
-
-ulke=veriler.iloc[:,0:1].values
+outlook=veriler.iloc[:,0:1].values
 le=LabelEncoder()
-ulke[:,0] = le.fit_transform(ulke[:,0])
-#print(ulke)
+outlook[:,0] = le.fit_transform(outlook[:,0])
+#print(outlook)
 
 ohe=OneHotEncoder(categorical_features='all')
-ulke=ohe.fit_transform(ulke).toarray()
-#print(ulke)
-#print('Encoding edilen ulke verisi:',ulke)
+outlook=ohe.fit_transform(outlook).toarray()
+#print(outlook)
+
 #-----------------------------------------------------------
 
 
-#cinsiyet alanı numarik veriye çevirme
+#windy alanı numarik veriye çevirme
 
-c=veriler.iloc[:,-1:].values
+windy=veriler.iloc[:,3:4].values
 le=LabelEncoder()
-c[:,0] = le.fit_transform(c[:,0])
-#print(c)
+windy[:,0] = le.fit_transform(windy[:,0])
+#print(windy)
 
 ohe=OneHotEncoder(categorical_features='all')
-c=ohe.fit_transform(c).toarray()
-#print(c)
+windy=ohe.fit_transform(windy).toarray()
+#print(windy)
 #-------------------------------------------------------------
+
+
+
+
+#oyun alanı numarik veriye çevirme
+
+play=veriler.iloc[:,-1:].values
+le=LabelEncoder()
+play[:,0] = le.fit_transform(play[:,0])
+#print(play)
+
+ohe=OneHotEncoder(categorical_features='all')
+play=ohe.fit_transform(play).toarray()
+#print(play)
+#-------------------------------------------------------------
+
+
 
 
 
 #verilerin birleştirilmesi
 
-sonucUlke=pd.DataFrame(data=ulke,index=range(22),columns=['fr','tr','us'])
-#print(sonucUlke)
-sonucBoyKiloYas=pd.DataFrame(data=yas,index=range(22),columns=['boy','kilo','yas'])
-#print(sonucBoyKiloYas)
+sonuc1=pd.DataFrame(data=outlook,index=range(14),columns=['overcast','rainy','sunny'])
+sonuc2=pd.DataFrame(data=termo,index=range(14),columns=['temperature'])
+sonuc3=pd.DataFrame(data=windy[:,:1],index=range(14),columns=['windy'])
+sonuc4=pd.DataFrame(data=play[:,:1],index=range(14),columns=['play'])
 
-sonucCinsiyet=pd.DataFrame(data=c[:,:1],index=range(22),columns=['cinsiyet'])
-sonuc=pd.concat([sonucUlke,sonucBoyKiloYas,sonucCinsiyet],axis=1)
-sonucTest=pd.concat([sonucUlke,sonucBoyKiloYas],axis=1)
-#print(sonucTest)
+sonuc=pd.concat([sonuc1,sonuc2,sonuc3,sonuc4],axis=1)
+
+
 #print(sonuc)
 #---------------------------------------------------------------
 
@@ -87,7 +104,7 @@ sonucTest=pd.concat([sonucUlke,sonucBoyKiloYas],axis=1)
 
 from sklearn.cross_validation import train_test_split
 
-x_train,x_test,y_train,y_test=train_test_split(sonucTest,sonucCinsiyet,test_size=0.33,random_state=0)
+x_train,x_test,y_train,y_test=train_test_split(sonuc,humidity,test_size=0.33,random_state=0)
 
 from sklearn.preprocessing import StandardScaler
 sc=StandardScaler()
@@ -102,12 +119,12 @@ y_pred=regressor.predict(x_test)
 #print(y_pred)
 
 #boy tahmin etme regresion'u
-boy=sonuc.iloc[:,3:4].values
-sol=sonuc.iloc[:,:3]
-sag=sonuc.iloc[:,4:]
-veri=pd.concat([sol,sag],axis=1)
+#boy=sonuc.iloc[:,3:4].values
+#sol=sonuc.iloc[:,:3]
+#sag=sonuc.iloc[:,4:]
+#veri=pd.concat([sol,sag],axis=1)
 
-x_train,x_test,y_train,y_test=train_test_split(veri,boy,test_size=0.33,random_state=0)
+'''x_train,x_test,y_train,y_test=train_test_split(veri,boy,test_size=0.33,random_state=0)
 
 r2=LinearRegression()
 r2.fit(x_train,y_train)
@@ -118,7 +135,7 @@ X=np.append(arr=np.ones((22,1)).astype(int),values=veri ,axis=1)
 X_l=veri.iloc[:,[0,1,2,3,4,5]].values
 r_ols=sm.OLS(endog=boy,exog=X_l).fit()
 print(r_ols.summary())
-
+'''
 
 
 
