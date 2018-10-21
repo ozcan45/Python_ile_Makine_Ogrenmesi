@@ -120,6 +120,3 @@ r_ols=sm.OLS(endog=boy,exog=X_l).fit()
 print(r_ols.summary())
 
 
-
-
-
