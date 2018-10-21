@@ -20,7 +20,7 @@ veriler=pd.read_csv("maaslar.csv")
 x=veriler.iloc[:,1:2]
 y=veriler.iloc[:,2:]
 
-#frame verilerini numPY dizi dönüşümü
+#frame verilerin numPY dizi dönüşümü
 X=x.values
 Y=y.values
 
