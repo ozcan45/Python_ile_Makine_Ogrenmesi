@@ -31,7 +31,7 @@ lin_reg=LinearRegression()
 lin_reg.fit(X,Y)
 
 
-#dogrulsal olmayan regreyson(polinom)/2.dereceden
+#dogrusal olmayan regreyson(polinom)/2.dereceden
 from sklearn.preprocessing import PolynomialFeatures
 poly_reg=PolynomialFeatures(degree=2)
 x_poly=poly_reg.fit_transform(X)
@@ -58,8 +58,6 @@ plt.plot(X,lin_reg2.predict(poly_reg.fit_transform(X)),color='orange')
 plt.show()
 
 plt.scatter(X,Y,color='red')
-plt.plot(X,lin_reg3.predict(poly_reg3.fit_transform(X)),color='orange')
+plt.plot(X,lin_reg3.predict(poly_reg3.fit_transform(X)),color='blue')
 plt.show()
-
-
-
+ 

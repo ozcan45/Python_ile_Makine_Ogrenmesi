@@ -79,14 +79,15 @@ X_l=sonveriler2.iloc[:,[0,1,2,3,4,5]].values
 r_ols=sm.OLS(endog=sonveriler2.iloc[:,-1:],exog=X_l).fit()
 print(r_ols.summary())
 #ilk p değeri regression hesaplama,tahmin etme
-x_train,x_test,y_train,y_test=train_test_split(sonveriler2.iloc[:,:-1],sonveriler2.iloc[:,-1:],test_size=0.33,random_state=0)
 
+x_train,x_test,y_train,y_test=train_test_split(sonveriler2.iloc[:,:-1],sonveriler2.iloc[:,-1:],test_size=0.33,random_state=0)
 r2=LinearRegression()
 r2.fit(x_train,y_train)
 y_pred=r2.predict(x_test)
 print("ikinci tahmin: ",y_pred)
 
 #ikinci geri eleme ve regression hesaplama,tahmin etme
+
 sonveriler2=sonveriler2.iloc[:,1:]
 X=np.append(arr=np.ones((14,1)).astype(int),values=sonveriler2.iloc[:,:-1] ,axis=1)
 X_l=sonveriler2.iloc[:,[0,1,2,3,4]].values
