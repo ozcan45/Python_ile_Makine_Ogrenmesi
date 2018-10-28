@@ -61,7 +61,7 @@ plt.scatter(X,Y,color='red')
 plt.plot(X,lin_reg3.predict(poly_reg3.fit_transform(X)),color='blue')
 plt.show()
  
-
+#Karar Agaci/Decision Tree Regressor
 from sklearn.tree import DecisionTreeRegressor
 r_dt=DecisionTreeRegressor(random_state=0)
 r_dt.fit(X,Y)
