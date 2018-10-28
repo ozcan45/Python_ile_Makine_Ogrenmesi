@@ -61,3 +61,35 @@ plt.scatter(X,Y,color='red')
 plt.plot(X,lin_reg3.predict(poly_reg3.fit_transform(X)),color='blue')
 plt.show()
  
+
+
+
+
+
+
+#destek vektor makineleri /Support Vector Machine
+
+from sklearn.preprocessing import StandardScaler
+sc1=StandardScaler()
+x_olcekli=sc1.fit_transform(X)
+sc2=StandardScaler()
+y_olcekli=sc2.fit_transform(Y)
+
+from sklearn.svm import SVR
+sv_reg=SVR(kernel='rbf')
+sv_reg.fit(x_olcekli,y_olcekli)
+plt.scatter(x_olcekli,y_olcekli,color='red')
+plt.plot(x_olcekli,sv_reg.predict(x_olcekli),color='blue')
+plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
